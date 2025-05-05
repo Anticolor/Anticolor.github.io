@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Guesser</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.1.18/jquery.backstretch.min.js" integrity="sha512-bXc1hnpHIf7iKIkKlTX4x0A0zwTiD/FjGTy7rxUERPZIkHgznXrN/2qipZuKp/M3MIcVIdjF4siFugoIc2fL0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+ 
+
+</head>
+<body>
+
+    <script>  
+        $.backstretch("assets/background.jpg");
+     </script>
+
+<div x-data='colourGuesser()' x-init="init()" class="bg-gray-200/70 text-slate-700 flex flex-col items-center justify-center min-h-screen min-w-full">
+
+    <div class="bg-white w-20 h-20 m-5 rounded-full shadow-5xl flex justify-center items-center border-8" x-transition :style="timerStyleBorder">
+        <p x-text="currentTime" class="text-4xl font-bold" :style="timerStyleText"></p>
+       
+    </div>
+
+    <div class="bg-white p-10 rounded-lg shadow-5xl text-left">
+        <p class="text-4xl font-bold  mb-1 pixelBold">Colour Guesser</p>
+        <div x-data="{ open: false }">
+            <span class="text-md ">What colour does this HEX-Code represent:</span>
+            <button x-on:click="open = !open">
+            <i class='bx bx-notepad p-0.5 bg-gray-200 rounded hover:bg-gray-800 hover:text-white  '></i>
+            </button>
+            <div x-show="open" x-transition class="mt-2 p-2 bg-gray-100 border border-slate-200 rounded-lg">
+                <div class="text-2xl font-bold mb-2">How to read a Hex-Code: </div>
+                <div class="flex  font-bold text-lg my-2"><p>Format: '#<p class="text-red-500">RR</p><p class="text-green-500">GG</p><p class="text-blue-500">BB</p>'</p></div>
+                <div class="text-md">Each pair of represents a value from 0-255.</div>
+                <div class="text-md">00 = 0 (minimum intensity) <br> FF = 255 (maximum intensity)</div>
+                <table class=" border-black w-full text-center mt-2">
+                    <tr class="font-bold ">
+                        <td class="border-r px-1 border-slate-400">0</th>
+                        <td class="border-r px-1 border-slate-400">1</th>    
+                        <td class="border-r px-1 border-slate-400">2</th>    
+                        <td class="border-r px-1 border-slate-400">3</th>    
+                        <td class="border-r px-1 border-slate-400">4</th>    
+                        <td class="border-r px-1 border-slate-400">5</th>    
+                        <td class="border-r px-1 border-slate-400">6</th>    
+                        <td class="border-r px-1 border-slate-400">7</th>    
+                        <td class="border-r px-1 border-slate-400">8</th>
+                        <td class="border-r px-1 border-slate-400">9</th>
+                        <td class="border-r px-1 border-slate-400">a</th>
+                        <td class="border-r px-1 border-slate-400">b</th>
+                        <td class="border-r px-1 border-slate-400">c</th>
+                        <td class="border-r px-1 border-slate-400">d</th>
+                        <td class="border-r px-1 border-slate-400">e</th>
+                        <td class="px-1">f</th>
+                    </tr>
+                    <tr>
+                        <td class="border-r border-t border-slate-400">0</th>
+                        <td class="border-r border-t border-slate-400">1</th>
+                        <td class="border-r border-t border-slate-400">2</th>
+                        <td class="border-r border-t border-slate-400">3</th>
+                        <td class="border-r border-t border-slate-400">4</th>
+                        <td class="border-r border-t border-slate-400">5</th>
+                        <td class="border-r border-t border-slate-400">6</th>
+                        <td class="border-r border-t border-slate-400">7</th>
+                        <td class="border-r border-t border-slate-400">8</th>
+                        <td class="border-r border-t border-slate-400">9</th>
+                        <td class="border-r border-t border-slate-400">10</th>
+                        <td class="border-r border-t border-slate-400">11</th>
+                        <td class="border-r border-t border-slate-400">12</th>
+                        <td class="border-r border-t border-slate-400">13</th>
+                        <td class="border-r border-t border-slate-400">14</th>
+                        <td class="border-t border-slate-400">15</th>
+                    </tr>
+                </table>
+                <div class="flex  font-bold text-lg mt-4"><p>Example: '#<p class="text-red-500">e7</p><p class="text-green-500">4c</p><p class="text-blue-500">3c</p>'</p></div>
+                <div class="text-md flex">Red: <p class="ml-2 italic">e*16 + 7 = 14*16 + 7 = 231</p></div>
+                <div class="text-md flex">Green: <p class="ml-2 italic">4*16 + c = 4*16 + 12 = 76</p></div>
+                <div class="text-md flex">Blue: <p class="ml-2 italic">3*16 + c = 3*16 + 12 = 60</p></div>
+                <div class="flex  font-bold text-lg "><p>Result:<p class="text-red-500 ml-2">231</p><p class="text-green-500 ml-2">76</p><p class="text-blue-500 ml-2">60</p><p class=" ml-2">=</p>  <p class="ml-2 px-2 text-white rounded" style="background-color: #e74c3c;">#e74c3c</p></p></div>
+            </div>
+            
+            <div class="p-2 mt-3 text-center rounded-lg" :style="messageStyle">
+                <span class=" p-2" x-text="message"></span>
+            </div>
+            
+            <div class="w-full  mt-10"><p class="text-4xl font-bold"><span x-text="colors[correctIndex]"></span></p></div>
+        </div>
+        <div class="mt-3 grid grid-cols-3 gap-4 [&>div]:border-8 [&>div]:border-white [&>div:hover]:border">
+            <div class="w-24 h-24 rounded-lg cursor-pointer" x-on:click="checkIndex(0)" :style="bg1"></div>
+            <div class="w-24 h-24 rounded-lg cursor-pointer" x-on:click="checkIndex(1)" :style="bg2"></div>
+            <div class="w-24 h-24 rounded-lg cursor-pointer" x-on:click="checkIndex(2)" :style="bg3"></div>
+        </div>
+
+        
+
+        <div class="mt-6">
+            <span class="text-lg font-bold  pixelMedium">Score:</span>
+            <span x-text="score" class="text-lg "></span>
+        </div>
+        <div>
+            <span class="text-md font-bold  pixelMedium">Round:</span>
+            <span x-text="round" class="text-md "></span>
+        </div>
+        <div>
+            <span class="text-md font-bold  pixelMedium">Curret streak:</span>
+            <span x-text="streak" class="text-md "></span>
+        </div>
+        
+
+        
+    </div>
+
+    <!--TESTINGTOOLS-->
+    <div class="text-center" x-data="{ testingTools: false}">
+        
+        <div x-on:click="testingTools = !testingTools" class=" mt-2 cursor-pointer transition-transform duration-300 ease-in-out" :class="{'rotate-180': testingTools}">
+           
+            <i class=' bx bx-chevron-down text-3xl mt-2 text-white/50 hover:text-white px-3' ></i>
+        </div>
+        
+        <div x-show="testingTools" x-transition class="bg-white p-10 my-5  rounded-lg shadow-5xl text-center justify-center">
+            <p class="text-2xl font-bold ">Testing Tools</p>
+            <div class="mt-4 flex text-center justify-center">
+                <p class="text-xl ">Correct Index: </p>
+                <p class="text-xl ml-3 font-bold" x-text="correctIndex"></p>
+            </div>
+            
+            
+            <div class="mt-4 flex text-center justify-center">
+                <p class="text-xl ">Score:</p>
+                <p class="ml-3 border bg-gray-600 text-white px-2 rounded-lg cursor-pointer" x-on:click="scoreUpdate(+1)">+1</p> 
+                <p class="ml-3 border bg-gray-600 text-white px-2 rounded-lg cursor-pointer" x-on:click="scoreUpdate(-2)">-2</p>
+            </div>
+            <button @click="showOverlay = !showOverlay" class="mt-4 px-4 py-2 bg-gray-600 text-white rounded-lg">
+                Show Overlay
+              </button>
+              <div class="mt-4 flex text-center justify-center">
+              <p class="text-xl ">Best Streak:</p>
+                <p class="ml-3 border bg-gray-600 text-white px-2 rounded-lg cursor-pointer" x-on:click="bestStreak++;">+1</p> 
+                <p class="ml-3 border bg-gray-600 text-white px-2 rounded-lg cursor-pointer" x-on:click="bestStreak--;">-1</p>
+            </div>
+            <button @click="startTime = 999" class="mt-4 px-4 py-2 bg-gray-600 text-white rounded-lg">
+                Time +999
+              </button>
+              <button @click="startTime = 5" class="mt-4 px-4 py-2 bg-gray-600 text-white rounded-lg">
+                <i class='bx bx-refresh'></i>
+              </button>
+        </div>
+    </div>
+        
+    
+    <!--OVERLAY-->
+    <div x-show="showOverlay" x-transition.opacity class=" fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div class="bg-white p-4 rounded-lg shadow-lg p-8">
+        <p class="text-gray-800 text-3xl font-bold" x-text="overlayText"></p>
+        <div class="mt-3">
+            <span class="text-xl">Rounds: </span>
+            <span x-text="round" class="text-xl font-bold"></span>
+        </div>
+        <div>
+            <span class="text-xl">Best streak:</span>
+            <span x-text="bestStreak" class="text-xl font-bold "></span>
+        </div>
+        <button @click="showOverlay = !showOverlay, reset();" class="mt-4 px-2 pb-1 bg-gray-600 text-white flex rounded-lg text-center items-center justify-center">
+            <p class="text-white text-2xl m-2 font-bold">Play Again</p>
+                <i class='bx bx-play-circle m-2 mt-3 text-3xl'></i>
+           
+        </button>
+      </div>
+    </div>
+    
+</div>
+
+
+<script>
+    function colourGuesser() 
+    {
+        return {
+            colors: [
+                '', 
+                '', 
+                '',
+            ],
+            score: 0,
+            streak: 0,
+            bestStreak: 0,
+            round: 0,
+            correctIndex: 0,
+            showOverlay: false,
+            message: 'Good Luck!',
+            overlayText: '',
+
+            messageStyle: 'background-color:#e2e2e2;',
+            bg1: 'background-color:#dedede;',
+            bg2: 'background-color:#dedede;',
+            bg3: 'background-color:#dedede;',
+            
+            
+            checkIndex(index)
+            {
+                if(index != this.correctIndex)
+                { 
+                    this.streakUpdate(); 
+                    this.scoreUpdate(-2);
+                    this.messageStyle = 'background-color:#e0b0b0;';
+                    this.message = 'Wrong, but you`ll get the next one!';        
+                   
+                } else {
+                    this.scoreUpdate(+1);
+                    this.messageStyle = 'background-color:#90e090;';
+                    this.message = 'Yaay, you got one!';
+                    this.streak++;
+                }
+                this.currentTime = this.startTime;
+                this.calcColours();
+            },
+
+
+            init()
+            {
+                this.calcColours();
+                
+            },
+
+            calcColours()
+            {
+                //Math.floor - kürzt auf eine ganze Zahl (rundet immer ab)
+                //Math.random() = Zahl von 0-1
+                this.correctIndex = Math.floor(Math.random()*2.9999999);
+                console.log('Result: ' + this.correctIndex);
+                this.colors[0] = this.calcColour();
+                this.colors[1] = this.calcColour();
+                this.colors[2] = this.calcColour();
+                this.bg1 = 'background-color:'+ this.colors[0] + ';';
+                this.bg2 = 'background-color:'+ this.colors[1] + ';';
+                this.bg3 = 'background-color:'+ this.colors[2] + ';';
+                this.startCountdown();
+                
+            },
+
+            calcColour()
+            {
+                return '#'+ Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+            },
+
+            scoreUpdate(amount)
+            {
+                this.score += amount;
+                this.checkLife();
+                this.round++;
+            },
+
+            streakUpdate()
+            {
+               if(this.streak > this.bestStreak)
+               {
+                this.bestStreak = this.streak; 
+               }
+               this.streak = 0;
+            },
+
+            reset()
+            {
+                this.score = 0;
+                this.streak = 0;
+                this.bestStreak = 0;
+                this.round = 0;
+                this.message = 'Good Luck!';
+                this.messageStyle = 'background-color:#e2e2e2;';
+                this.calcColours();
+                this.currentTime = this.startTime;
+                this.startCountdown();
+                this.timerStyleBorder= 'border-color: #4ADE80;';
+                    this.timerStyleText= 'color: #4ADE80;';
+            },
+
+            checkLife()
+            {
+                
+                if(this.score <= 0)
+                {
+                    this.overlayText = 'YOU LOST!';
+                    this.showOverlay = true;
+                    
+                } else if(this.score >= 20)
+                {
+                    this.overlayText = 'YOU WON!';
+                    this.streakUpdate();
+                    this.showOverlay = true;
+                }
+            },
+
+            
+            startTime: 10,
+            currentTime: 10,
+           
+            
+            startCountdown() {
+            clearInterval(this.interval);
+                
+                if(this.round > 0)
+                {
+                    //Whenever the Countdown start again, this resets it instantly so the first number doesn't show as the previous colour
+                    this.colourTimer();
+                    this.interval = setInterval(() => {
+                        if (this.currentTime > 0) {
+                            this.currentTime--;
+                        } else {
+                            clearInterval(this.interval);
+                            this.score = 0;
+                            this.checkLife();
+                        }
+                        this.colourTimer();
+                    }, 1000);
+                }     
+            
+            },
+
+            timerStyleBorder: 'border-color: #90e090;',
+            timerStyleText: 'color: #90e090;',
+
+            colourTimer()
+            {
+                if(this.currentTime >=0 && this.currentTime <=1)
+                {
+                    this.timerStyleBorder= 'border-color: #EB342C;';
+                    this.timerStyleText= 'color: #EB342C;';
+                } else if(this.currentTime <=3 && this.currentTime >=2) {
+                    this.timerStyleBorder= 'border-color: #FFB12C;';
+                    this.timerStyleText= 'color: #FFB12C;';
+                } else {
+                    this.timerStyleBorder= 'border-color: #90e090;';
+                    this.timerStyleText= 'color: #90e090;';
+                }
+            },
+        }; 
+        
+    }
+</script>
+
+</body>
+</html>

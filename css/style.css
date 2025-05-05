@@ -1,0 +1,33 @@
+@font-face {
+    font-family: "BebasNeue";
+    font-weight: 400;
+    src: url(/fonts/BebasNeue/BebasNeue-Regular.ttf) format('truetype');
+  }
+
+  
+  @font-face {
+    font-family: "Montserrat";
+    font-weight: 400;
+    src: url(/fonts/Montserrat/Montserrat-VariableFont_wght.ttf) format('truetype');
+  }
+  
+@layer base {
+    .font-bebas {
+      font-family: "BebasNeue", sans-serif;
+    }
+    .font-montserrat {
+      font-family: "Montserrat", sans-serif;
+    }
+  }
+
+  .noScroll {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.noScroll::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+
+
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+        <script type="module" src="../../js/threeProjectTemplate.js"></script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Shoobridge-Jeremy</title>
+
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="../../css/style.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/25.0.0/tween.amd.min.js" integrity="sha512-xLgYJVKWFR+rMZaltgtduMPH768rRJ4q8mKFgunxqs2HW+7D/CYzsjoeIgqE/FSRpSM2W3gjEMyXE1at324itg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        <!--Aus einem Video geklaut - link: https://www.youtube.com/watch?v=NsH_-i8k7Z4-->
+        <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+	    <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.156.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.156.0/examples/jsm/"
+                }
+            }
+        </script>
+        
+	</head>
+
+	<!--repositionlight();-->
+	<body x-data="{ menu: false }"  id="page" onclick="changeColour();" class="bg-white cursor-none overflow-auto min-w-[340px] flex justify-center" >
+		<canvas  id="three" class="fixed top-0 left-0 e"></canvas>
+		<!--<nav x-data="{ menu: true }" :class="{ 'justify-end': menu, 'justify-between': !menu, }" class="border flex w-full text-white z-[50] absolute m-auto p-10 md:justify-between">-->
+		<nav class=" flex w-full text-white z-[50] fixed m-auto p-10 justify-between">
+			
+			<!--<div :class="{ 'hidden': menu, 'md:block': menu}" class="border-blue-200 basis-1">-->
+			<div class="border-blue-200 basis-1">
+				<a href="../../index.html">
+					<h1 class=" hoverEffect cursor-none p-4 text-5xl font-bebas">Jeremy Shoobridge</h1>
+				</a>
+			</div>
+		
+			<div :class="{ 'flex-col': !menu, 'flex-col-reverse': menu, 'md:flex-row': menu}" class=" flex md:items-center md:justify-center">
+				<ul x-cloak x-show="menu" class=" items-center sm:flex "
+					x-transition:enter="transition ease-out duration-300"
+					x-transition:enter-start="translate-x-52 md:-translate-y-36 md:translate-x-0"
+					x-transition:enter-end="translate-y-0"
+					x-transition:leave="transition ease-out duration-300"
+					x-transition:leave-start="translate-y-0"
+					x-transition:leave-end="translate-x-52 md:-translate-y-36 md:translate-x-0">
+					<div class="flex flex-col md:flex-row gap-4 border-blue-200 justify-start">
+						<a href="../../html/projects.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Projects</p>
+						</a>
+						<a href="../../html/resume.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Resume</p>
+						</a>
+						<a href="../../html/contact.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Contact</p>
+						</a>
+						<a href="../../html/test.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Chatbot</p>
+						</a>
+					</div>
+				</ul>
+		
+				<button @click="menu = !menu"  class=" cursor-none flex transition duration-300 hoverEffect p-4  justify-end">
+					<i :class="{ 'rotate-[180deg]': menu, 'md:rotate-[-90deg]': menu}" class="bx bxs-chevron-up bx-sm  "></i>
+				</button>
+			</div>
+		</nav>
+
+		<div id="mouseCircle" class="transition duration-200 bg-white/5 ease-in-out scale-100 absolute z-[40] w-12 h-12 border-2 border-white rounded-full"></div>
+
+		 <!--Page Conntent-->
+		 <main :class="{ 'mt-[80px]': !menu}" class="  wrapper px-12 noScroll w-screen overflow-auto max-w-screen-xl  h-[calc(100vh-200px)] md:h-[calc(100vh-80px)] z-[49] mt-[200px] md:mt-[80px] fixed m-auto grid grid-rows-7">	
+			
+			<div class="h-1/6 lg:h-1/3 pt-5 "></div>
+			 
+			<div class="content  border-blue-200 overflow-auto noScroll text-white items-start text-md font-montserrat  row-start-2 row-span-6 mb-12 ">
+				<p class=" font-bold lg:text-7xl text-4xl ">[ WELTUMWELTTAG ]</p> 
+
+                <div class="h-1/6 lg:h-1/3 pt-5 "></div>
+
+                <div class=" flex grid sm:grid-rows-3 grid-cols-1 sm:grid-cols-4 gap-12">
+                    <img class="object-cover h-auto w-auto  row-start-1 sm:row-span-3 lg:col-span-1 col-start-1 col-span-1 sm:col-span-2 rounded-3xl" src="/data/project01/card/thumbnail.png" alt="">
+                
+                    <div class=" row-start-1 row-start-2 sm:row-span-3 sm:col-start-3 sm:col-span-2 lg:col-start-2 flex flex-col justify-center">
+                      <p class="text-md font-bold mb-2">Summary:</p>
+                      <p class="text-md max-w-[36rem]">This Project happened in a university module, and the given task was to design an informative and appealing poster for International Environment Day. Other than that, we had a lot of creative room to work with.</p>
+                    </div>
+                </div>
+
+				<div class="h-1/6 lg:h-1/6 pt-5 "></div>
+
+                <p class="text-md max-w-[33rem]">The focus was on effectively using colors to capture attention, promote eco-friendly actions, and create an emotional connection to environmental protection.</p>
+                    
+				<div class="h-1/6 lg:h-1/6 pt-5 "></div>
+                
+
+                <div class="carousel overflow-visible flex max-h-[500px]  h-auto justify-center relative">
+					
+					<div class="picture overflow-visible 1 flex flex-col relative">
+						<img src="../../data/project01/001.jpg" alt="01" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">My first design</p>
+					</div>
+
+					<div class="picture overflow-visible 2 flex flex-col relative">
+						<img src="../../data/project01/002.jpg" alt="02" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Made it symetrical</p>
+					</div>
+
+					<div class="picture overflow-visible 3 flex flex-col relative">
+						<img src="../../data/project01/003.jpg" alt="03" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Tried out some more colors</p>
+					</div>
+
+					<div class="picture overflow-visible 4 flex flex-col relative">
+						<img src="../../data/project01/004.jpg" alt="04" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Some adjustments</p>
+					</div>
+
+					<div class="picture overflow-visible 5 flex flex-col relative">
+						<img src="../../data/project01/005.jpg" alt="05" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Some more adjustments</p>
+					</div>
+
+					<div class="picture overflow-visible 6 flex flex-col relative">
+						<img src="../../data/project01/006.jpg" alt="06" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Back to light colors</p>
+					</div>
+
+					<div class="picture overflow-visible 7 flex flex-col relative">
+						<img src="../../data/project01/007.jpg" alt="07" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Wasn't happy with my motiv</p>
+					</div>
+
+					<div class="picture overflow-visible 8 flex flex-col relative">
+						<img src="../../data/project01/008.jpg" alt="08" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Final Design</p>
+					</div>
+
+					<div class="picture overflow-visible 9 flex flex-col relative">
+						<img src="../../data/project01/009.jpg" alt="09" class="rounded-3xl h-full max-h-[500px] w-auto">
+						<p class="items-center bottom-[-2.5rem] right-0 p-2 text-white absolute px-3 ">Tested around with color a bit</p>
+					</div>		
+
+					<div class="  h-full w-full flex absolute justify-between items-center">
+						<i onclick="Carousel(-1)" class='hoverEffect cursor-none hover:opacity-50 bx bx-chevron-left bx-lg m-2 p-5 text-white rounded-full hover:border'></i>
+						<i onclick="Carousel(+1)" class='hoverEffect cursor-none hover:opacity-50 bx bx-chevron-right bx-lg m-2 p-5 text-white rounded-full hover:border'></i>
+					</div>
+
+                </div>
+
+				<div class="h-1/6 pt-5 "></div>
+
+            </div>
+         
+        </main>
+
+		<script src="../../js/main.js"></script>
+
+	</body>
+</html>

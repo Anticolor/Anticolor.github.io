@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+        <script type="module" src="../js/threeResume.js"></script>
+		<script src="../js/main.js"></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Shoobridge-Jeremy</title>
+
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="../css/style.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/25.0.0/tween.amd.min.js" integrity="sha512-xLgYJVKWFR+rMZaltgtduMPH768rRJ4q8mKFgunxqs2HW+7D/CYzsjoeIgqE/FSRpSM2W3gjEMyXE1at324itg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        <!--Aus einem Video geklaut - link: https://www.youtube.com/watch?v=NsH_-i8k7Z4-->
+        <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+	    <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.156.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.156.0/examples/jsm/"
+                }
+            }
+        </script>
+        
+	</head>
+
+	<!--repositionlight();-->
+	<body x-data="{ menu: false }"  id="page" onclick="changeColour();" class="bg-white cursor-none overflow-auto min-w-[340px] flex justify-center" >
+		<canvas  id="three" class="fixed top-0 left-0 e"></canvas>
+		<!--<nav x-data="{ menu: true }" :class="{ 'justify-end': menu, 'justify-between': !menu, }" class="border flex w-full text-white z-[50] absolute m-auto p-10 md:justify-between">-->
+		<nav  class=" flex w-full text-white z-[50] fixed m-auto p-10 justify-between">
+			
+			<!--<div :class="{ 'hidden': menu, 'md:block': menu}" class="border-blue-200 basis-1">-->
+			<div class="border-blue-200 basis-1">
+				<a href="../index.html">
+					<h1 class=" hoverEffect cursor-none p-4 text-5xl font-bebas">Jeremy Shoobridge</h1>
+				</a>
+			</div>
+		
+			<div :class="{ 'flex-col': !menu, 'flex-col-reverse': menu, 'md:flex-row': menu}" class=" flex md:items-center md:justify-center">
+				<ul x-cloak x-show="menu" class=" items-center sm:flex "
+					x-transition:enter="transition ease-out duration-300"
+					x-transition:enter-start="translate-x-52 md:-translate-y-36 md:translate-x-0"
+					x-transition:enter-end="translate-y-0"
+					x-transition:leave="transition ease-out duration-300"
+					x-transition:leave-start="translate-y-0"
+					x-transition:leave-end="translate-x-52 md:-translate-y-36 md:translate-x-0">
+					<div class="flex flex-col md:flex-row gap-4 border-blue-200 justify-start">
+						<a href="../html/projects.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Projects</p>
+						</a>
+						<a href="../html/resume.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Resume</p>
+						</a>
+						<a href="../html/contact.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Contact</p>
+						</a>
+						<a href="../html/test.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Chatbot</p>
+						</a>
+					</div>
+				</ul>
+		
+				<button @click="menu = !menu"  class=" cursor-none flex transition duration-300 hoverEffect p-4  justify-end">
+					<i :class="{ 'rotate-[180deg]': menu, 'md:rotate-[-90deg]': menu}" class="bx bxs-chevron-up bx-sm  "></i>
+				</button>
+			</div>
+		</nav>
+
+		<div id="mouseCircle" class="transition duration-200 bg-white/5 ease-in-out scale-100 absolute z-[40] w-12 h-12 border-2 border-white rounded-full"></div>
+
+		 <!--Page Conntent-->
+		 <main :class="{ 'mt-[80px]': !menu}"
+		 class="  wrapper px-12 noScroll w-screen overflow-auto max-w-screen-xl  h-[calc(100vh-200px)] md:h-[calc(100vh-80px)] z-[49] mt-[200px] md:mt-[80px] fixed m-auto grid grid-rows-7">
+			
+			<div class="  content  overflow-auto noScroll text-white items-start text-md font-montserrat  row-start-2 row-span-6 mb-12">
+				<div class=" flex items-end">
+					<p class=" font-bold md:text-7xl text-6xl mr-4">[ RESUME ]</p> 
+					<a href="../data/ShoobridgeJeremy_Lebenslauf.pdf" class="p-2 pb-0 cursor-none hoverEffect " download>
+						<i class='bx bx-download bx-md '></i>
+					</a>
+				</div>
+
+				<div class="h-1/3"></div>
+				
+				<p class=" font-bold text-2xl pb-12">Berufliche Erfahrungen</p>
+				<div class="flex flex-col">
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">06 / 2024 - Aktuell</p>
+							<p class="text-md font-bold">Mindhunters Osnabrück</p>
+							<p class="text-md">Gamemaster - Minijob</p>
+						</div>
+					</div>
+					
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">06 / 2023</p>
+							<p class="text-md font-bold">Technische Hochschule OWL</p>
+							<p class="text-md">Plottraum - Aushilfe</p>
+						</div>
+					</div>
+
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">05 / 2021 - 12 / 2021</p>
+							<p class="text-md font-bold">Getränkewelt Herford</p>
+							<p class="text-md">Einzelhandel - Minijob</p>
+						</div>
+					</div>
+
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">05 / 2019</p>
+							<p class="text-md font-bold">Klemme Photos Herford</p>
+							<p class="text-md">Fotograf - Praktikum</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="h-1/3"></div>
+				
+				<p class=" font-bold text-2xl pb-12">Schulbildung</p>
+				<div class="flex flex-col">
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">08 / 2023 - Aktuell</p>
+							<p class="text-md font-bold">Hochschule Osnabrück</p>
+							<p class="text-md">Media & Interaction Design</p>
+						</div>
+					</div>
+
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">08 / 2022 - 07 / 2023</p>
+							<p class="text-md font-bold">Technische Hochschule OWL</p>
+							<p class="text-md">2. Semester Architektur</p>
+						</div>
+					</div>
+
+					<div class="flex pb-6">
+						<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+						<div>
+							<p class="text-md">08 / 2019 - 07 / 2022</p>
+							<p class="text-md font-bold">Wilhelm-Normann Berfuskolleg</p>
+							<p class="text-md">Allgemeine Hochschulreife erworben</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="h-1/3"></div>
+
+				<p class=" font-bold text-2xl pb-12">Kenntnisse</p>
+				<div class="flex pb-6">
+					<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+					<div class="w-1/3">
+						<p class="text-md pb-2">Technikverständnis</p>
+						<div class="w-full">
+							<div class="border-t border-2 w-full "></div>
+							<div class="bg-gray-700 h-3 w-[90%] "></div>
+						</div>	
+					</div>		
+				</div>
+
+				<div class="flex pb-6">
+					<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+					<div class="w-1/3">
+						<p class="text-md pb-2">Illustration</p>
+						<div class="w-full">
+							<div class="border-t border-2 w-full "></div>
+							<div class="bg-gray-700 h-3 w-[70%] "></div>
+						</div>	
+					</div>		
+				</div>
+
+				<div class="flex pb-6">
+					<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+					<div class="w-1/3">
+						<p class="text-md pb-2">Adobe / Affinity</p>
+						<div class="w-full">
+							<div class="border-t border-2 w-full "></div>
+							<div class="bg-gray-700 h-3 w-[75%] "></div>
+						</div>	
+					</div>		
+				</div>
+
+				<p class=" font-bold text-2xl pb-12 pt-12">Sprache</p>
+				<div class="flex pb-6">
+					<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+					<div class="w-1/3">
+						<p class="text-md pb-2">Deutsch - Muttersprache</p>
+						<div class="w-full">
+							<div class="border-t border-2 w-full "></div>
+							<div class="bg-gray-700 h-3 w-[90%] "></div>
+						</div>	
+					</div>		
+				</div>
+
+				<div class="flex pb-6">
+					<div class="w-12 flex flex-row items-center"><i class='bx bx-circle'></i></div>
+					<div class="w-1/3">
+						<p class="text-md pb-2">Englisch - Muttersprache</p>
+						<div class="w-full">
+							<div class="border-t border-2 w-full "></div>
+							<div class="bg-gray-700 h-3 w-[85%] "></div>
+						</div>	
+					</div>		
+				</div>
+
+				<div class="h-1/4"></div>
+				
+			</div>
+			
+        </main>
+
+	</body>
+</html>

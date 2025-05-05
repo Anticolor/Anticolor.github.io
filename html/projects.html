@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+        <script type="module" src="../js/threeProjects.js"></script>
+		<script src="../js/main.js"></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Shoobridge-Jeremy</title>
+
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="../css/style.css">
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/25.0.0/tween.amd.min.js" integrity="sha512-xLgYJVKWFR+rMZaltgtduMPH768rRJ4q8mKFgunxqs2HW+7D/CYzsjoeIgqE/FSRpSM2W3gjEMyXE1at324itg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        <!--Aus einem Video geklaut - link: https://www.youtube.com/watch?v=NsH_-i8k7Z4-->
+        <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+	    <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@0.156.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.156.0/examples/jsm/"
+                }
+            }
+        </script>
+        
+	</head>
+
+	<!--repositionlight();-->
+	<body x-data="{ menu: false }" id="page" onclick="changeColour();" class="bg-white cursor-none overflow-auto min-w-[340px] flex justify-center" >
+		<canvas  id="three" class="fixed top-0 left-0 e"></canvas>
+		<!--<nav x-data="{ menu: true }" :class="{ 'justify-end': menu, 'justify-between': !menu, }" class="border flex w-full text-white z-[50] absolute m-auto p-10 md:justify-between">-->
+		<nav   class=" flex w-full text-white z-[50] fixed m-auto p-10 justify-between">
+			
+			<!--<div :class="{ 'hidden': menu, 'md:block': menu}" class="border-blue-200 basis-1">-->
+			<div class="border-blue-200 basis-1">
+				<a href="../index.html">
+					<h1 class=" hoverEffect cursor-none p-4 text-5xl font-bebas">Jeremy Shoobridge</h1>
+				</a>
+			</div>
+		
+			<div :class="{ 'flex-col': !menu, 'flex-col-reverse': menu, 'md:flex-row': menu}" class=" flex md:items-center md:justify-center">
+				<ul x-cloak x-show="menu" class=" items-center sm:flex "
+					x-transition:enter="transition ease-out duration-300"
+					x-transition:enter-start="translate-x-52 md:-translate-y-36 md:translate-x-0"
+					x-transition:enter-end="translate-y-0"
+					x-transition:leave="transition ease-out duration-300"
+					x-transition:leave-start="translate-y-0"
+					x-transition:leave-end="translate-x-52 md:-translate-y-36 md:translate-x-0">
+					<div class="flex flex-col md:flex-row gap-4 border-blue-200 justify-start">
+						<a href="../html/projects.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Projects</p>
+						</a>
+						<a href="../html/resume.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Resume</p>
+						</a>
+						<a href="../html/contact.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Contact</p>
+						</a>
+						<a href="../html/test.html"
+							class="hoverEffect cursor-none hover:opacity-50 flex flex-row justify-center border border-white px-3 py-1 mr-2 rounded-full hover:bg-white  hover:border-black  hover:text-black">
+							<p><i class='bx bx-circle bx-xs mr-1'></i></p>
+							<p class="">Chatbot</p>
+						</a>
+					</div>
+				</ul>
+		
+				<button @click="menu = !menu"  class=" cursor-none flex transition duration-300 hoverEffect p-4  justify-end">
+					<i :class="{ 'rotate-[180deg]': menu, 'md:rotate-[-90deg]': menu}" class="bx bxs-chevron-up bx-sm  "></i>
+				</button>
+			</div>
+		</nav>
+
+		<div id="mouseCircle" class="transition duration-200 bg-white/5 ease-in-out scale-100 absolute z-[40] w-12 h-12 border-2 border-white rounded-full"></div>
+
+		 <!--Page Conntent-->
+		 <main :class="{ 'mt-[80px]': !menu}"
+		 		class="  wrapper px-12 noScroll w-screen overflow-auto max-w-screen-xl  h-[calc(100vh-200px)] md:h-[calc(100vh-80px)] z-[49] mt-[200px] md:mt-[80px] fixed m-auto grid grid-rows-7">
+			
+			<div class="content overflow-auto noScroll text-white items-start text-md font-montserrat  row-start-2 row-span-6 mb-12">
+				<p class=" font-bold md:text-7xl text-6xl">[ PROJECTS ]</p> 
+				
+				<div class="h-1/3 pt-5 filter">
+					<button class="border hoverEffect cursor-none p-2 px-2 rounded-full mr-2 hover:bg-white hover:text-black hover:font-bold hover:opacity-50 bg-white text-black font-bold all" onclick="filterSelection('all')">Show All</button>
+    				<button class="border hoverEffect cursor-none p-2 px-2 rounded-full mr-2 hover:bg-white hover:text-black hover:font-bold hover:opacity-50 design" onclick="filterSelection('design')">Design</button>
+					<button class="border hoverEffect cursor-none p-2 px-2 rounded-full mr-2 hover:bg-white hover:text-black hover:font-bold hover:opacity-50 coding" onclick="filterSelection('coding')">Coding</button>
+					<button class="border hoverEffect cursor-none p-2 px-2 rounded-full mr-2 hover:bg-white hover:text-black hover:font-bold hover:opacity-50 favorite" onclick="filterSelection('favorite')"><i class='bx bx-star mr-1'></i>Favorite</button>
+				</div>
+				
+				<div class="porjects flex flex-col  ">
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center flex relative link all design favorite">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="../data/project01/project_WELTUMWELTTAG.html" >WELTUMWELTTAG</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design favorite">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="../data/project02/project_GEFÜHLEPOSTER.html" >GEFÜHLE POSTER</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >MODULAR TYPOGRAPHY</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >The laws of Design</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >Tribute: ben grangenette</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design favorite">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="../data/project03/project_QOUTEANDTYPO.html">Qoute and Typo connecting</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design">
+						<a class="  mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >SAFE PLACE</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all design">
+						<a class="  mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >POSTER DESIGN COLLECTION</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all coding favorite">
+						<a class="mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="../data/project04/project_COLOURGUESSER.html" >Colour guesser</a>
+					</div>
+					<div class=" lg:h-[100px] h-[45px] lg:justify-center  flex relative link all coding">
+						<a class="  mt-[-40px] hoverEffect cursor-none hover:opacity-50 font-bebas absolute font-bold text-[40px] lg:text-[100px]" 
+							href="" >Work gamification App</a>
+					</div>
+
+					<!-- First Card Design. Didn't like the picture though and thought this would be asthetic and a bit different...
+					<a href="#" class="hoverEffect cursor-none hover:opacity-50 flex flex-col items-center rounded-2xl md:rounded-full p-2 mb-6 md:flex-row md:max-w-xl hover:border-white hover:border">
+						<img class="object-cover h-96 md:h-auto w-auto md:w-32 rounded-full" src="/data/project01/card/thumbnail.png" alt="">
+						<div class="flex flex-col justify-between md:pl-8 mt-8 md:mt-0 leading-normal">
+							<h5 class="mb-2 text-xl font-bold font-montserrat">Weltumwelttag Poster</h5>
+							<p class="mb-3">This was a Poster that consisted </p>
+						</div>
+					</a>-->
+					
+				</div>
+			</div>
+			
+        </main>
+
+	</body>
+</html>
